@@ -1,0 +1,104 @@
+{
+  "layer": "bottom",
+  "position": "bottom",
+
+  "modules-left": ["niri/workspaces","custom/current_app", "custom/spotify" ],
+  "modules-center": ["clock"],
+  "modules-right": ["custom/brightness","tray", "custom/status","pulseaudio", "custom/ramcpu"],
+
+  "niri/workspaces": {
+	"format": "{icon}",
+	"format-icons": {
+		// Named workspaces
+		// (you need to configure them in niri)
+		"browser": "",
+		"discord": "",
+		"chat": "<b></b>",
+		// Icons by state
+		"active": "",
+		"default": ""
+	  }
+  },
+  // Data e Hora juntos no centro
+  "custom/datetime": {
+    "format": "{}",
+    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+    "exec": "LC_TIME=en_US.UTF-8 date '+%a %d %b • %H:%M'",
+    "interval": 30
+  },
+
+
+"clock": {
+ "format": "{:%d %B %H:%M  }",
+ "tooltip-format": "<big>{:%Y %B %d}</big>\n<tt><small>{calendar}</small></tt>",
+  "exec": "LC_TIME=en_US.UTF-8 date '+%a %d %b • %H:%M'",
+  "calendar": {
+    "mode": "year",
+    "mode-mon-col": 3,
+    "weeks-pos": "right",
+    "on-scroll": 1,
+    "on-click-right": "mode",
+    "format": {
+      "months":   "<span color='#d79921'><b>{}</b></span>",   
+      "days":     "<span color='#ebdbb2'><b>{}</b></span>",   
+      "weeks":    "<span color='#fb4934'><b>W{}</b></span>",  
+      "weekdays": "<span color='#fabd2f'><b>{}</b></span>",   
+      "today":    "<span color='#cc241d'><b><u>{}</u></b></span>"
+       }
+  },
+  "actions": {
+    "on-click-right": "mode",
+    "on-click-forward": "tz_up",
+    "on-click-backward": "tz_down",
+    "on-scroll-up": "shift_up",
+    "on-scroll-down": "shift_down"
+  }
+},
+
+  "custom/spotify": {
+    "exec": "playerctl -p spotify metadata --format '    {{title}} - {{artist}}' 2>/dev/null || echo ''",
+    "interval": 5,
+    "return-type": "text",
+    "on-click": "playerctl -p spotify play-pause"
+  },
+
+  "pulseaudio": {
+  "format": "/  volume: {volume}% ",
+  "format-muted": "muted",
+  "on-click": "pavucontrol"
+  },
+
+  "hyprland/window": {
+    "format": "{}",
+    "max-length": 45,
+    "icon": true,
+    "icon-size": 16,
+    "rewrite": {
+      "": "nathan"
+    },
+    "separate-outputs": true
+  },
+  "custom/status": {
+    "exec": "echo 'layout: br'",
+    "interval": 10,
+    "return-type": "text"
+  },
+
+  "custom/sysstatus": {
+  "exec": "~/.config/waybar/scripts/sysstatus.sh",
+    "interval": 5,
+    "return-type": "text"
+  },
+
+  "custom/current_app": {
+    "exec": "~/.config/waybar/scripts/apps.sh",
+    "interval": 1,
+    "format": "{}",
+    "tooltip": false
+  },
+
+  "tray": {
+    "icon-size": 15,
+    "spacing": 10
+  }
+}

@@ -1,0 +1,15 @@
+[language-server.discord-rpc]
+name = "discord-rpc-lsp"
+command = "discord-rpc-lsp"
+
+[[language]]
+name = "rust"
+language-servers = ["rust-analyzer"]
+
+[[language]]
+name = "typescript"
+language-servers = ["typescript-language-server"]
+
+[[language]]
+name = "javascript"
+language-servers = [ "typescript-language-server" ]
