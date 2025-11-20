@@ -3,18 +3,14 @@
   "position": "bottom",
 
   "modules-left": ["niri/workspaces","custom/current_app", "custom/spotify" ],
-  "modules-center": ["clock"],
-  "modules-right": ["custom/brightness","tray", "custom/status","pulseaudio", "custom/ramcpu"],
+  "modules-right": ["custom/brightness","tray", "cpu","memory","pulseaudio","backlight",  "clock", "battery"],
 
   "niri/workspaces": {
 	"format": "{icon}",
 	"format-icons": {
-		// Named workspaces
-		// (you need to configure them in niri)
 		"browser": "",
 		"discord": "",
 		"chat": "<b></b>",
-		// Icons by state
 		"active": "",
 		"default": ""
 	  }
@@ -27,9 +23,8 @@
     "interval": 30
   },
 
-
 "clock": {
- "format": "{:%d %B %H:%M  }",
+ "format": "{:%d %B %H:%M }",
  "tooltip-format": "<big>{:%Y %B %d}</big>\n<tt><small>{calendar}</small></tt>",
   "exec": "LC_TIME=en_US.UTF-8 date '+%a %d %b • %H:%M'",
   "calendar": {
@@ -63,21 +58,11 @@
   },
 
   "pulseaudio": {
-  "format": "/  volume: {volume}% ",
+  "format": "/  volume: {volume}%  /",
   "format-muted": "muted",
   "on-click": "pavucontrol"
   },
 
-  "hyprland/window": {
-    "format": "{}",
-    "max-length": 45,
-    "icon": true,
-    "icon-size": 16,
-    "rewrite": {
-      "": "nathan"
-    },
-    "separate-outputs": true
-  },
   "custom/status": {
     "exec": "echo 'layout: br'",
     "interval": 10,
@@ -100,5 +85,42 @@
   "tray": {
     "icon-size": 15,
     "spacing": 10
+  },
+
+  "cpu": {
+	 "interval": 10,
+ 	 "format": "/ {}%  ",
+	 "max-length": 10
+  },
+  
+  "memory": {
+	  "interval": 30,
+	  "format": "RAM: {}% ",
+	  "max-length": 10
+  },
+
+  "battery": {
+	"bat": "BAT0",
+	"interval": 60,
+	"states": {
+		"warning": 30,
+		"critical": 15
+	},
+	"events": {
+		"on-discharging-warning": "notify-send -u normal 'Low Battery'",
+		"on-discharging-critical": "notify-send -u critical 'Very Low Battery'",
+		"on-charging-100": "notify-send -u normal 'Battery Full!'"
+	},
+	"format": "/ {capacity}% {icon}",
+	"format-icons": ["  ", "  ", "  ", "  ", "  "],
+	"max-length": 25
+  },
+  
+  "backlight": {
+    "device": "intel_backlight",   // troque conforme seu caso
+    "format": "Brilho: {icon} {percent}%",
+    "format-icons": [" ", " "],
+    "on-click": "brightnessctl set +10%",
+    "on-click-right": "brightnessctl set 10%-"
   }
 }
